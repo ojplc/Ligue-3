@@ -10,78 +10,109 @@ const square9 = document.getElementById("9");
 
 */
 
-// Seleciona todos os elementos com a classe "square"
-const squares = document.querySelectorAll(".square");
-
-// Itera sobre os elementos, se necessário
-squares.forEach((square, index) => {
-	console.log(`Square ${index + 1}:`, square);
-});
-
 // pegar botao status
 const statusText = document.getElementById("status");
 
 // montar tabuleiro
 
-var tabuleiro = [0, 0, 0, 
-				0, 0, 0, 
-				0, 0, 0];
+var tabuleiro = Array(25).fill(0);
 var X = true;
 clicked = false;
-squares.forEach((square) => {
-	square.addEventListener("click", () => {
-		clicked = true;
-		let botaoClicado = document.createElement("img");
+expanded = false;
 
-		botaoClicado.className = square.className;
-		botaoClicado.id = square.id;
-		indexTabuleiro = botaoClicado.id;
+setUpEventListeners();
 
-		if (X) {
-			botaoClicado.src = "images/X.jpg";
-			statusText.textContent = "Vez de O";
-			tabuleiro[indexTabuleiro - 1] = "X";
-		} else {
-			botaoClicado.src = "images/O.jpg";
-			statusText.textContent = "Vez de X";
-			tabuleiro[indexTabuleiro - 1] = "O";
-		}
-		X = !X;
+function setUpEventListeners() {
+	// Seleciona todos os elementos com a classe "square"
+	const squares = document.querySelectorAll(".square, .inner-square");
 
-		square.replaceWith(botaoClicado);
+	// Itera sobre os elementos, se necessário
+	squares.forEach((square, index) => {
+		console.log(`Square ${index + 1}:`, square);
 	});
-});
+
+	squares.forEach((square) => {
+		square.addEventListener("click", () => {
+			let botaoClicado = document.createElement("img");
+			botaoClicado.className = square.className;
+			botaoClicado.id = square.id;
+			indexTabuleiro = botaoClicado.id;
+			console.log(botaoClicado.className);
+
+			if (
+				(botaoClicado.className == "square" && expanded) ||
+				botaoClicado.className == "inner-square"
+			) {
+				clicked = true;
+
+				if (expanded) {
+					botaoClicado.style.opacity = 1;
+				}
+
+				if (X) {
+					botaoClicado.src = "images/X.jpg";
+					statusText.textContent = "Vez de O";
+					tabuleiro[indexTabuleiro - 1] = "X";
+					console.log(tabuleiro);
+				} else {
+					botaoClicado.src = "images/O.jpg";
+					statusText.textContent = "Vez de X";
+					tabuleiro[indexTabuleiro - 1] = "O";
+					console.log(tabuleiro);
+				}
+				X = !X;
+
+				square.replaceWith(botaoClicado);
+			}
+		});
+	});
+}
 
 function reset() {
 	console.log("botao reset apertado");
 	console.log(tabuleiro);
-	let squaresNow = document.querySelectorAll(".square");
 
-	squaresNow.forEach((squareNow, index) => {
-		squareNow.replaceWith(squares[index]);
+	let changedSquares = document.querySelectorAll(".square, .inner-square");
+
+	changedSquares.forEach((square) => {
+		let imagem = document.createElement("img");
+		imagem.src = "images/N.jpg";
+		imagem.className = square.className;
+		imagem.id = square.id;
+
+		square.replaceWith(imagem);
 	});
 
 	if (clicked) {
 		statusText.textContent = "Bora pra próxima";
+		clicked = false;
 	} else {
 		statusText.textContent = "porra tu nem jogo ainda e já quer resetar???";
 	}
 	tabuleiro = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+	setUpEventListeners();
+	expandTabuleiro();
 }
 
 function winingStatus() {
-	winingCombinations = [
-		[0, 1, 2],
-		[3, 4, 5],
+	winingCombinationsLevel1 = [
 		[6, 7, 8],
-		[0, 3, 6],
-		[1, 4, 7],
-		[2, 5, 8],
-		[0, 4, 8],
-		[2, 4, 6],
+		[11, 12, 13],
+		[16, 17, 18],
+		[6, 11, 16],
+		[7, 12, 17],
+		[8, 13, 18],
+		[6, 12, 18],
+		[8, 12, 16],
 	];
 }
 
-
+function expandTabuleiro() {
+	expanded = true;
+	squaresModified = document.querySelectorAll(".square");
+	squaresModified.forEach((item) => {
+		item.style.opacity = 1;
+	});
+}
 const restartButton = document.getElementById("restart");
 restartButton.addEventListener("click", reset);

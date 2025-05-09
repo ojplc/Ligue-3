@@ -1,11 +1,16 @@
 .grid-cis{ 
-    width: 10px;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;
+    height: 60vh;
+    
 }
 
 .image-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 images per row */
+    grid-template-columns: repeat(5, 1fr); /* 3 images per row */
     gap: 10px; /* Space between images */
+    
 }
 
 .square {
@@ -13,8 +18,19 @@
     height: 100px;
     width: 100px;
     object-fit: cover;
+    opacity: 0.5;
+}
+.inner-square {
+    border-radius: 20%;
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
 }
 
+.Box-restart{
+    display: flex;
+    justify-content: center;
+}
 .restart {
     background-color: #e99d0f; /* Cor de fundo */
     color: white; /* Cor do texto */
