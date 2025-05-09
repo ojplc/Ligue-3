@@ -48,3 +48,32 @@
 .restart:hover {
     background-color: #e7ca92;
 }
+
+.status {
+    font-size: 18px; /* Tamanho da fonte */
+    font-weight: bold; /* Negrito */
+    color: #333; /* Cor do texto */
+    text-align: center; /* Centralizar o texto */
+    margin: 20px auto; /* Margem superior e inferior, centralizado horizontalmente */
+    padding: 10px; /* Espaçamento interno */
+    background-color: #f4f4f4; /* Cor de fundo */
+    border: 1px solid #ccc; /* Borda */
+    border-radius: 5px; /* Bordas arredondadas */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra */
+    width: 400px; /* Largura fixa */
+    height: 50px; /* Altura fixa */
+    display: flex; /* Para alinhar o texto */
+    align-items: center; /* Centralizar verticalmente */
+    justify-content: center; /* Centralizar horizontalmente */
+}
+
+#title {
+    position: absolute; /* Posicionamento absoluto */
+    top: 10px; /* Distância do topo */
+    left: 10px; /* Distância da esquerda */
+    font-size: 24px; /* Tamanho da fonte */
+    font-weight: bold; /* Negrito */
+    color: #458fd4; /* Cor do texto */
+    margin: 0; /* Remover margens padrão */
+    padding: 0; /* Remover espaçamento interno */
+}

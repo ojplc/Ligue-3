@@ -63,12 +63,15 @@ function setUpEventListeners() {
 				X = !X;
 
 				square.replaceWith(botaoClicado);
+				winingStatus();
 			}
 		});
 	});
 }
 
 function reset() {
+	tabuleiro = Array(25).fill(0);
+	expanded = false;
 	console.log("botao reset apertado");
 	console.log(tabuleiro);
 
@@ -89,9 +92,15 @@ function reset() {
 	} else {
 		statusText.textContent = "porra tu nem jogo ainda e já quer resetar???";
 	}
-	tabuleiro = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 	setUpEventListeners();
-	expandTabuleiro();
+}
+
+function expandTabuleiro() {
+	expanded = true;
+	squaresModified = document.querySelectorAll(".square");
+	squaresModified.forEach((item) => {
+		item.style.opacity = 1;
+	});
 }
 
 function winingStatus() {
@@ -105,13 +114,20 @@ function winingStatus() {
 		[6, 12, 18],
 		[8, 12, 16],
 	];
-}
 
-function expandTabuleiro() {
-	expanded = true;
-	squaresModified = document.querySelectorAll(".square");
-	squaresModified.forEach((item) => {
-		item.style.opacity = 1;
+	winingCombinationsLevel1.forEach((combination) => {
+		if (
+			tabuleiro[combination[0]] === tabuleiro[combination[1]] &&
+			tabuleiro[combination[1]] === tabuleiro[combination[2]] &&
+			tabuleiro[combination[0]] !== 0
+		) {
+			expandTabuleiro();
+
+			combination.forEach((item) => {
+				let victorySquare = document.getElementById(String(item + 1));
+				// colocar um indicador dos quadrados que ganharam
+			});
+		}
 	});
 }
 const restartButton = document.getElementById("restart");
